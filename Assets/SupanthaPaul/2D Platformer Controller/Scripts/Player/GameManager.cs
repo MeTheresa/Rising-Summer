@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
         PlayerInput input2 = new PlayerInput();
         input2.moveLeftKey = KeyCode.J;
-        input2.moveRightKey = KeyCode.K;
+        input2.moveRightKey = KeyCode.L;
         input2.jumpKey = KeyCode.I;
         input2.punchKey = KeyCode.H;
 
