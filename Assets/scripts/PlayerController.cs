@@ -18,7 +18,7 @@ namespace SupanthaPaul
         private Rigidbody2D m_rb;
         private bool m_facingRight = true;
         public bool isGrounded;
-        private float moveInput;
+        [SerializeField] private float moveInput;
 
         private float knockbackTimer = 0f;
         [SerializeField] private float knockbackDuration = 0.2f;
@@ -51,6 +51,7 @@ namespace SupanthaPaul
         {
             if (playerInput != null)
                 moveInput = playerInput.HorizontalRaw();
+            else Debug.Log("Did not find PlayerInput");
 
             if (playerInput != null && playerInput.Jump() && isGrounded)
             {
