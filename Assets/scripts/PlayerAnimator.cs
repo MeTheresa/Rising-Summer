@@ -8,8 +8,9 @@ namespace SupanthaPaul
         private PlayerController m_controller;
         private Animator m_anim;
 
-        private static readonly int Move = Animator.StringToHash("Move");
-        private static readonly int IsJumping = Animator.StringToHash("IsJumping");
+        private static readonly int _move = Animator.StringToHash("Move");
+        private static readonly int _isJumping = Animator.StringToHash("IsJumping");
+        private static readonly int _melee = Animator.StringToHash("Melee");
 
         private void Start()
         {
@@ -21,10 +22,13 @@ namespace SupanthaPaul
         private void Update()
         {
             // Idle & Running animation (absolute X velocity)
-            m_anim.SetFloat(Move, Mathf.Abs(m_rb.linearVelocity.x));
+            m_anim.SetFloat(_move, Mathf.Abs(m_rb.linearVelocity.x));
 
             // Jump animation (if not grounded)
-            m_anim.SetBool(IsJumping, !m_controller.isGrounded);
+            m_anim.SetBool(_isJumping, !m_controller._isGrounded);
+
+            m_anim.SetBool(_melee, m_controller._isPunching);
+
         }
     }
 }

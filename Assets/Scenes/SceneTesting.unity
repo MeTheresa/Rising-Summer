@@ -378,6 +378,51 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 362869658216186847, guid: 1e496228efd9b96438fef86e655fe4dd,
+        type: 3}
+      propertyPath: _speed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 362869658216186847, guid: 1e496228efd9b96438fef86e655fe4dd,
+        type: 3}
+      propertyPath: _jumpForce
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 362869658216186847, guid: 1e496228efd9b96438fef86e655fe4dd,
+        type: 3}
+      propertyPath: _isGrounded
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 362869658216186847, guid: 1e496228efd9b96438fef86e655fe4dd,
+        type: 3}
+      propertyPath: _punchRange
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 362869658216186847, guid: 1e496228efd9b96438fef86e655fe4dd,
+        type: 3}
+      propertyPath: _groundCheck
+      value: 
+      objectReference: {fileID: 2016934894}
+    - target: {fileID: 362869658216186847, guid: 1e496228efd9b96438fef86e655fe4dd,
+        type: 3}
+      propertyPath: _knockbackForce
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 362869658216186847, guid: 1e496228efd9b96438fef86e655fe4dd,
+        type: 3}
+      propertyPath: _knockbackDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 362869658216186847, guid: 1e496228efd9b96438fef86e655fe4dd,
+        type: 3}
+      propertyPath: _whatIsGround.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 362869658216186847, guid: 1e496228efd9b96438fef86e655fe4dd,
+        type: 3}
+      propertyPath: _upwardKnockbackForce
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1181075296608648064, guid: 1e496228efd9b96438fef86e655fe4dd,
         type: 3}
       propertyPath: m_Name
@@ -500,6 +545,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4360541476133917502, guid: aa16a38bc939b194ba97a2b3780326d7,
+        type: 3}
+      propertyPath: _speed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4360541476133917502, guid: aa16a38bc939b194ba97a2b3780326d7,
+        type: 3}
+      propertyPath: _jumpForce
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4360541476133917502, guid: aa16a38bc939b194ba97a2b3780326d7,
+        type: 3}
+      propertyPath: _punchRange
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4360541476133917502, guid: aa16a38bc939b194ba97a2b3780326d7,
+        type: 3}
+      propertyPath: _groundCheck
+      value: 
+      objectReference: {fileID: 2016934894}
+    - target: {fileID: 4360541476133917502, guid: aa16a38bc939b194ba97a2b3780326d7,
+        type: 3}
+      propertyPath: _knockbackForce
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4360541476133917502, guid: aa16a38bc939b194ba97a2b3780326d7,
+        type: 3}
+      propertyPath: _knockbackDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4360541476133917502, guid: aa16a38bc939b194ba97a2b3780326d7,
+        type: 3}
+      propertyPath: _whatIsGround.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 4360541476133917502, guid: aa16a38bc939b194ba97a2b3780326d7,
+        type: 3}
+      propertyPath: _upwardKnockbackForce
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
