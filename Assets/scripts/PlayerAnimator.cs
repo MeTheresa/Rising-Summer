@@ -25,9 +25,9 @@ namespace SupanthaPaul
             m_anim.SetFloat(_move, Mathf.Abs(m_rb.linearVelocity.x));
 
             // Jump animation (if not grounded)
-            m_anim.SetBool(_isJumping, !m_controller._isGrounded);
+            m_anim.SetBool(_isJumping, !m_controller.isGrounded);
 
-            m_anim.SetBool(_melee, m_controller._isPunching);
+            m_anim.SetBool(_melee, m_controller.isPunching);
 
         }
     }

@@ -6,116 +6,169 @@ namespace SupanthaPaul
     {
         public PlayerInput playerInput;
 
-        [SerializeField] private float _speed = 5f;
-        [SerializeField] private float _jumpForce = 10f;
-        [SerializeField] private Transform _groundCheck;
-        [SerializeField] private float _groundCheckRadius = 0.2f;
-        [SerializeField] private LayerMask _whatIsGround;
-        [SerializeField] private float _knockbackForce = 10f;
-        [SerializeField] private float _upwardKnockbackForce = 7f; // Slightly increased for smoother arc
-        [SerializeField] private float _punchRange = 1f;
+        [Header("Movement Settings")]
+        [SerializeField] private float speed = 5f;
+        [SerializeField] private float jumpForce = 10f;
 
-        private Rigidbody2D _m_rb;
-        private bool _m_facingRight = true;
-        public bool _isGrounded;
-        public bool _isPunching;
-        [SerializeField] private float _moveInput;
+        [Header("Ground Check")]
+        [SerializeField] private Transform groundCheck;
+        [SerializeField] private float groundCheckRadius = 0.2f;
+        [SerializeField] private LayerMask whatIsGround;
 
+        [Header("Punch Settings")]
+        [SerializeField] private float knockbackForce = 10f;
+        [SerializeField] private float upwardKnockbackForce = 7f;
+        [SerializeField] private float punchRange = 1f;
+
+        [Header("Knockback Settings")]
+        [SerializeField] private float knockbackDuration = 0.2f;
         private float knockbackTimer = 0f;
-        [SerializeField] private float _knockbackDuration = 0.2f;
+
+        [Header("Audio Sources")]
+        [SerializeField] private AudioSource punchSoundSource;
+        [SerializeField] private AudioSource hitSoundSource;
+        [SerializeField] private AudioSource runningSoundSource;
+        [SerializeField] private AudioSource jumpSoundSource; // New jump sound source
+
+        private Rigidbody2D rb;
+        private bool facingRight = true;
+        public bool isGrounded;
+        public bool isPunching;
+        private float moveInput;
 
         void Start()
         {
-            _m_rb = GetComponent<Rigidbody2D>();
+            rb = GetComponent<Rigidbody2D>();
         }
 
         void FixedUpdate()
         {
-            _isGrounded = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _whatIsGround);
+            isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
             if (knockbackTimer <= 0f)
             {
-                _m_rb.linearVelocity = new Vector2(_moveInput * _speed, _m_rb.linearVelocity.y);
+                rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
             }
             else
             {
                 knockbackTimer -= Time.fixedDeltaTime;
             }
 
-            if (!_m_facingRight && _moveInput > 0f)
+            if (!facingRight && moveInput > 0f)
                 Flip();
-            else if (_m_facingRight && _moveInput < 0f)
+            else if (facingRight && moveInput < 0f)
                 Flip();
         }
 
         void Update()
         {
             if (playerInput != null)
-                _moveInput = playerInput.HorizontalRaw();
+                moveInput = playerInput.HorizontalRaw();
             else Debug.Log("Did not find PlayerInput");
 
-            if (playerInput != null && playerInput.Jump() && _isGrounded)
+            if (playerInput != null && playerInput.Jump() && isGrounded)
             {
-                _m_rb.linearVelocity = new Vector2(_m_rb.linearVelocity.x, _jumpForce);
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+
+                // Play jump sound
+                if (jumpSoundSource != null)
+                {
+                    jumpSoundSource.Play();
+                }
             }
 
             if (playerInput != null && playerInput.Punch())
             {
                 Punch();
             }
+
+            HandleRunningSound();
         }
 
-    void Punch()
-    {
-        _isPunching = true;
-        Invoke(nameof(ResetPunch), 0.2f); // Reset after 0.2 seconds
-
-        Vector2 punchPosition = (_m_facingRight ? Vector2.right : Vector2.left) * _punchRange + (Vector2)transform.position;
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(punchPosition, 0.5f, LayerMask.GetMask("Player"));
-
-        foreach (var hit in hitEnemies)
+        void Punch()
         {
-            if (hit && hit.gameObject != gameObject)
+            isPunching = true;
+            Invoke(nameof(ResetPunch), 0.2f); // Reset after 0.2 seconds
+
+            Vector2 punchPosition = (facingRight ? Vector2.right : Vector2.left) * punchRange + (Vector2)transform.position;
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(punchPosition, 0.5f, LayerMask.GetMask("Player"));
+
+            bool hitEnemy = false;
+
+            foreach (var hit in hitEnemies)
             {
-                Rigidbody2D otherRb = hit.GetComponent<Rigidbody2D>();
-                if (otherRb)
+                if (hit && hit.gameObject != gameObject)
                 {
-                    otherRb.linearVelocity = Vector2.zero;
-
-                    Vector2 force = new Vector2(
-                        _m_facingRight ? _knockbackForce : -_knockbackForce,
-                        _upwardKnockbackForce
-                    );
-
-                    otherRb.AddForce(force, ForceMode2D.Impulse);
-
-                    if (hit.TryGetComponent<PlayerController>(out var otherController))
+                    hitEnemy = true;
+                    Rigidbody2D otherRb = hit.GetComponent<Rigidbody2D>();
+                    if (otherRb)
                     {
-                        otherController.knockbackTimer = otherController._knockbackDuration;
+                        otherRb.linearVelocity = Vector2.zero;
+
+                        Vector2 force = new Vector2(
+                            facingRight ? knockbackForce : -knockbackForce,
+                            upwardKnockbackForce
+                        );
+
+                        otherRb.AddForce(force, ForceMode2D.Impulse);
+
+                        // Play hit sound
+                        if (hitSoundSource != null)
+                        {
+                            hitSoundSource.Play();
+                        }
+
+                        if (hit.TryGetComponent<PlayerController>(out var otherController))
+                        {
+                            otherController.knockbackTimer = otherController.knockbackDuration;
+                        }
                     }
                 }
             }
+
+            // Play punch sound only if no enemy was hit
+            if (!hitEnemy && punchSoundSource != null)
+            {
+                punchSoundSource.Play();
+            }
         }
-    }
 
         void ResetPunch()
         {
-            _isPunching = false;
+            isPunching = false;
         }
 
         void Flip()
         {
-            _m_facingRight = !_m_facingRight;
+            facingRight = !facingRight;
             Vector3 scale = transform.localScale;
             scale.x *= -1;
             transform.localScale = scale;
         }
 
+        void HandleRunningSound()
+        {
+            if (Mathf.Abs(moveInput) > 0.1f && isGrounded)
+            {
+                if (!runningSoundSource.isPlaying)
+                {
+                    runningSoundSource.Play();
+                }
+            }
+            else
+            {
+                if (runningSoundSource.isPlaying)
+                {
+                    runningSoundSource.Stop();
+                }
+            }
+        }
+
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
-            if (_groundCheck != null)
-                Gizmos.DrawWireSphere(_groundCheck.position, _groundCheckRadius);
+            if (groundCheck != null)
+                Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         }
     }
 }
