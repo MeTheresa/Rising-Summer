@@ -1032,7 +1032,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Player 2 Controls\n\nJump\t\t\tI\nLeft\t\t\tJ\nRight\t\t\tL\nPunch\t\tH\n"
+  m_text: "Player 2 Controls\n\nJump\t\t\tUp Arrow\nLeft\t\t\tLeft Arrow\nRight\t\t\tRight
+    Arrow\nPunch\t\tRight Ctrl\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

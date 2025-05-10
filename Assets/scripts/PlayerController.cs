@@ -1,3 +1,5 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace SupanthaPaul
@@ -5,10 +7,15 @@ namespace SupanthaPaul
     public class PlayerController : MonoBehaviour
     {
         public PlayerInput playerInput;
+        public PlayerController otherPlayerController;
 
         [Header("Movement Settings")]
-        [SerializeField] private float speed = 5f;
-        [SerializeField] private float jumpForce = 10f;
+        [SerializeField] private float fixedSpeed = 5f;
+        [SerializeField] private float speed = 0f;
+
+        [SerializeField] private float jumpForce = 16f;
+        [SerializeField] private bool hasJumped;
+        [SerializeField] private bool hasDoubleJumped;
 
         [Header("Ground Check")]
         [SerializeField] private Transform groundCheck;
@@ -16,12 +23,15 @@ namespace SupanthaPaul
         [SerializeField] private LayerMask whatIsGround;
 
         [Header("Punch Settings")]
-        [SerializeField] private float knockbackForce = 10f;
-        [SerializeField] private float upwardKnockbackForce = 7f;
+        [SerializeField] private float BaseKnockbackForce = 8f;
+        [SerializeField] private float knockbackForce = 0f;
+        [SerializeField] private float baseUpwardKnockbackForce = 7f;
+        [SerializeField] private float upwardKnockbackForce = 0f;
         [SerializeField] private float punchRange = 1f;
 
         [Header("Knockback Settings")]
-        [SerializeField] private float knockbackDuration = 0.2f;
+        [SerializeField] private float BaseKnockbackDuration = 0.35f;
+        [SerializeField] private float knockbackDuration = 0f;
         private float knockbackTimer = 0f;
 
         [Header("Audio Sources")]
@@ -29,6 +39,17 @@ namespace SupanthaPaul
         [SerializeField] private AudioSource hitSoundSource;
         [SerializeField] private AudioSource runningSoundSource;
         [SerializeField] private AudioSource jumpSoundSource; // New jump sound source
+
+        [Header("Power Ups")]
+        [SerializeField] private int whichPowerUp = 0;
+        [SerializeField] private float powerUpTime = 5f;
+        [SerializeField] private float powerUpTimer = 0f;
+        [SerializeField] private float speedPowerUp = 5f;
+        [SerializeField] private float powerUpKnockbackForce= 4f;
+        [SerializeField] private float powerUpUpwardKnockbackForce = 2f;
+        [SerializeField] private float powerUpKnockbackDuration = 0.15f;
+
+
 
         private Rigidbody2D rb;
         private bool facingRight = true;
@@ -38,13 +59,15 @@ namespace SupanthaPaul
 
         void Start()
         {
+            speed = fixedSpeed;
+            knockbackForce = BaseKnockbackForce;
+            upwardKnockbackForce = baseUpwardKnockbackForce;
+            knockbackDuration = BaseKnockbackDuration;
             rb = GetComponent<Rigidbody2D>();
         }
 
         void FixedUpdate()
         {
-            isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
-
             if (knockbackTimer <= 0f)
             {
                 rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
@@ -60,29 +83,92 @@ namespace SupanthaPaul
                 Flip();
         }
 
+        private void ApplyJumpVelocity()
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        }
+
+        private void PlayJumpSound()
+        {
+            jumpSoundSource.Play();
+        }
+
         void Update()
         {
+            if (isGrounded && hasJumped || isGrounded && hasDoubleJumped)
+            {
+                hasJumped = false;
+                hasDoubleJumped = false;
+            }
+            isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+            
             if (playerInput != null)
                 moveInput = playerInput.HorizontalRaw();
-            else Debug.Log("Did not find PlayerInput");
 
-            if (playerInput != null && playerInput.Jump() && isGrounded)
+            if (playerInput.Punch())
             {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                Punch();
+            }
+            
+            HandleRunningSound();
+
+            if (powerUpTimer > 0) powerUpTimer -= Time.deltaTime;
+            else
+            {
+                powerUpTimer = 0;
+                switch (whichPowerUp)
+                {
+                    case 1:
+                        {
+                            speed = fixedSpeed;
+                            whichPowerUp = 0;
+                            Debug.Log("PowerUp 1 down" + this.gameObject.name);
+                            break;
+                        }
+                    case 2:
+                        {
+                            knockbackForce = BaseKnockbackForce;
+                            upwardKnockbackForce = baseUpwardKnockbackForce;
+                            otherPlayerController.knockbackDuration = BaseKnockbackDuration;
+                            whichPowerUp = 0;
+                            Debug.Log("PowerUp 2 down" + this.gameObject.name);
+                            break;
+                        }
+                    case 3:
+                        {
+                            whichPowerUp = 0;
+                            Debug.Log("PowerUp 3 down" + this.gameObject.name);
+                            break;
+                        }
+                }
+                
+            }
+        }
+        void LateUpdate()
+        {
+            if (hasJumped && playerInput.Jump() && hasDoubleJumped == false)
+            {
+                hasDoubleJumped = true;
+                ApplyJumpVelocity();
 
                 // Play jump sound
                 if (jumpSoundSource != null)
                 {
-                    jumpSoundSource.Play();
+                    PlayJumpSound();
                 }
             }
-
-            if (playerInput != null && playerInput.Punch())
+            if (playerInput.Jump() && isGrounded)
             {
-                Punch();
-            }
+                isGrounded = false;
+                hasJumped = true;
+                ApplyJumpVelocity();
 
-            HandleRunningSound();
+                // Play jump sound
+                if (jumpSoundSource != null)
+                {
+                    PlayJumpSound();
+                }
+            }
         }
 
         void Punch()
@@ -169,6 +255,40 @@ namespace SupanthaPaul
             Gizmos.color = Color.red;
             if (groundCheck != null)
                 Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        }
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            powerUpTimer = powerUpTime;
+            switch (collision.name) 
+            {
+                case "PowerUp1(Clone)":
+                    {
+                        whichPowerUp = 1;
+                        speed = fixedSpeed + speedPowerUp;
+                            Debug.Log("PowerUp 1 picked up" + this.gameObject.name);
+                        knockbackForce = BaseKnockbackForce;
+                        upwardKnockbackForce = baseUpwardKnockbackForce;
+                        otherPlayerController.knockbackDuration = BaseKnockbackDuration;
+
+                        break;
+                    }
+                case "PowerUp2(Clone)":
+                    {
+                        whichPowerUp = 2;
+                        knockbackForce = BaseKnockbackForce + powerUpKnockbackForce;
+                        upwardKnockbackForce = baseUpwardKnockbackForce + powerUpUpwardKnockbackForce;
+                        otherPlayerController.knockbackDuration = BaseKnockbackDuration + powerUpKnockbackDuration;
+                        Debug.Log("PowerUp 2 picked up" + this.gameObject.name);
+                        speed = fixedSpeed;
+                        break;
+                    }
+                case "PowerUp3(Clone)":
+                    {
+                        whichPowerUp = 3;
+                        break;
+                    }
+            }
+            Destroy(collision.gameObject);
         }
     }
 }

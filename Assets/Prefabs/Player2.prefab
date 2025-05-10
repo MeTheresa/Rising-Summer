@@ -87,7 +87,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.6879358, y: 1.7405422}
+  m_Size: {x: 0.6879358, y: 1.73}
   m_EdgeRadius: 0
 --- !u!50 &4501419851406967828
 Rigidbody2D:
@@ -128,21 +128,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4af389105722f64d8db36af0a4eb949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherPlayerController: {fileID: 362869658216186847, guid: 1e496228efd9b96438fef86e655fe4dd,
+    type: 3}
+  fixedSpeed: 5
   speed: 5
   jumpForce: 16
+  hasJumped: 0
+  hasDoubleJumped: 0
   groundCheck: {fileID: 6238142430655751768}
-  groundCheckRadius: 0.2
+  groundCheckRadius: 0.0105
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
-  knockbackForce: 12
-  upwardKnockbackForce: 8
-  punchRange: 1.2
-  knockbackDuration: 0.5
+  BaseKnockbackForce: 8
+  knockbackForce: 0
+  baseUpwardKnockbackForce: 7
+  upwardKnockbackForce: 0
+  punchRange: 1
+  BaseKnockbackDuration: 0.35
+  knockbackDuration: 0
   punchSoundSource: {fileID: 2730111508504643705}
   hitSoundSource: {fileID: 1685315377145112407}
   runningSoundSource: {fileID: 4546247346199464350}
   jumpSoundSource: {fileID: 2251668034346403888}
+  whichPowerUp: 0
+  powerUpTime: 5
+  powerUpTimer: 0
+  speedPowerUp: 5
+  powerUpKnockbackForce: 4
+  powerUpUpwardKnockbackForce: 2
+  powerUpKnockbackDuration: 0.15
   isGrounded: 0
   isPunching: 0
 --- !u!114 &7915635842870965463
@@ -5632,7 +5647,7 @@ GameObject:
   m_Layer: 10
   m_Name: GroundCheck
   m_TagString: Untagged
-  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -5645,7 +5660,7 @@ Transform:
   m_GameObject: {fileID: 8167183178025763032}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.044, z: 0}
+  m_LocalPosition: {x: 0, y: -1.0631, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

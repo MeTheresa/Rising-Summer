@@ -6261,6 +6261,18 @@ PrefabInstance:
       propertyPath: player2
       value: 
       objectReference: {fileID: 1320507790}
+    - target: {fileID: 5097559300720545287, guid: e9b2382d5264e2b478407d5d0df47ddb,
+        type: 3}
+      propertyPath: powerUp1
+      value: 
+      objectReference: {fileID: 2277247584446089524, guid: 067fb668aeb34ce4b9f924de170ffb78,
+        type: 3}
+    - target: {fileID: 5097559300720545287, guid: e9b2382d5264e2b478407d5d0df47ddb,
+        type: 3}
+      propertyPath: powerUp2
+      value: 
+      objectReference: {fileID: 1341020640450176068, guid: 40d3e10a783d4544e84334912e3b538b,
+        type: 3}
     - target: {fileID: 5536508261377486347, guid: e9b2382d5264e2b478407d5d0df47ddb,
         type: 3}
       propertyPath: m_Name
