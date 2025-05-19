@@ -6,7 +6,7 @@ public class ScoreManager : MonoBehaviour
 
     public int player1Wins = 0;
     public int player2Wins = 0;
-    public string lastWinner = "";
+    public string lastWinner;
 
     void Awake()
     {
@@ -23,11 +23,11 @@ public class ScoreManager : MonoBehaviour
 
     public void AddWin(string playerName)
     {
-        if (playerName == "Player 1")
+        if (playerName == "Player1")
         {
             player1Wins++;
         }
-        else if (playerName == "Player 2")
+        else if (playerName == "Player2")
         {
             player2Wins++;
         }
