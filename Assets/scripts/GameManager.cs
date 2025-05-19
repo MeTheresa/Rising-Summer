@@ -14,11 +14,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject powerUp1;
     [SerializeField] private GameObject powerUp2;
     [SerializeField] private GameObject powerUp3;
-
-    void Start()
+    void Awake()
     {
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 120;
         cam = Camera.main;
+
         PlayerInput input1 = new PlayerInput();
         PlayerInput input2 = new PlayerInput();
 
@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
+        if (!gameObject.activeInHierarchy || cam == null) return;
         powerUpCdTimer -= Time.deltaTime;
         if (powerUpCdTimer <= 0f)
         {
