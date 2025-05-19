@@ -503,6 +503,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 362869658216186847, guid: 1e496228efd9b96438fef86e655fe4dd,
         type: 3}
+      propertyPath: playerInput
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 362869658216186847, guid: 1e496228efd9b96438fef86e655fe4dd,
+        type: 3}
       propertyPath: knockbackForce
       value: 0
       objectReference: {fileID: 0}
@@ -685,6 +690,11 @@ PrefabInstance:
       propertyPath: groundCheck
       value: 
       objectReference: {fileID: 70175869}
+    - target: {fileID: 4360541476133917502, guid: aa16a38bc939b194ba97a2b3780326d7,
+        type: 3}
+      propertyPath: playerInput
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4360541476133917502, guid: aa16a38bc939b194ba97a2b3780326d7,
         type: 3}
       propertyPath: hitSoundSource

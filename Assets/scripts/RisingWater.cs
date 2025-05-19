@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RisingWater : MonoBehaviour
 {
@@ -51,6 +52,10 @@ public class RisingWater : MonoBehaviour
     void KillPlayers()
     {
         Debug.Log($"Game Over! {PlayerWhoDied.name} lost!");
-        Time.timeScale = 0f;
+
+        string winner = (PlayerWhoDied == player1) ? "Player2" : "Player1";
+        ScoreManager.Instance.AddWin(winner);
+
+        SceneManager.LoadScene("SceneGameOver");
     }
 }

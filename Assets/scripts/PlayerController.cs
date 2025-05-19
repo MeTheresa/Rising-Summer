@@ -45,7 +45,7 @@ namespace SupanthaPaul
         [SerializeField] private float powerUpTime = 5f;
         [SerializeField] private float powerUpTimer = 0f;
         [SerializeField] private float speedPowerUp = 5f;
-        [SerializeField] private float powerUpKnockbackForce= 4f;
+        [SerializeField] private float powerUpKnockbackForce = 4f;
         [SerializeField] private float powerUpUpwardKnockbackForce = 2f;
         [SerializeField] private float powerUpKnockbackDuration = 0.15f;
 
@@ -95,21 +95,49 @@ namespace SupanthaPaul
 
         void Update()
         {
+            if (playerInput == null) Debug.Log("Help");
             if (isGrounded && hasJumped || isGrounded && hasDoubleJumped)
             {
                 hasJumped = false;
                 hasDoubleJumped = false;
             }
             isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
-            
-            if (playerInput != null)
-                moveInput = playerInput.HorizontalRaw();
 
-            if (playerInput.Punch())
+            if (this.gameObject.name == "Player1")
             {
-                Punch();
+                if (playerInput != null)
+                {
+                    moveInput = playerInput.HorizontalRawP1();
+                }
+
             }
-            
+            else if (this.gameObject.name == "Player2")
+            {
+                if (playerInput != null)
+                {
+                    moveInput = playerInput.HorizontalRawP2();
+                    
+
+                }
+            }
+
+            if (this.gameObject.name == "Player1")
+            {
+                if (playerInput.PunchP1())
+                {
+                    Punch();
+                }
+            }
+            else if (this.gameObject.name == "Player2")
+            {
+                if (playerInput.PunchP2())
+                {
+                    Punch();
+                }
+            }
+
+
+
             HandleRunningSound();
 
             if (powerUpTimer > 0) powerUpTimer -= Time.deltaTime;
@@ -141,32 +169,61 @@ namespace SupanthaPaul
                             break;
                         }
                 }
-                
+
             }
         }
         void LateUpdate()
         {
-            if (hasJumped && playerInput.Jump() && hasDoubleJumped == false)
+            if (this.gameObject.name == "Player1")
             {
-                hasDoubleJumped = true;
-                ApplyJumpVelocity();
-
-                // Play jump sound
-                if (jumpSoundSource != null)
+                if (hasJumped && playerInput.JumpP1() && hasDoubleJumped == false)
                 {
-                    PlayJumpSound();
+                    hasDoubleJumped = true;
+                    ApplyJumpVelocity();
+
+                    // Play jump sound
+                    if (jumpSoundSource != null)
+                    {
+                        PlayJumpSound();
+                    }
+                }
+                if (playerInput.JumpP1() && isGrounded)
+                {
+                    isGrounded = false;
+                    hasJumped = true;
+                    ApplyJumpVelocity();
+
+                    // Play jump sound
+                    if (jumpSoundSource != null)
+                    {
+                        PlayJumpSound();
+                    }
                 }
             }
-            if (playerInput.Jump() && isGrounded)
+            if (this.gameObject.name == "Player2")
             {
-                isGrounded = false;
-                hasJumped = true;
-                ApplyJumpVelocity();
-
-                // Play jump sound
-                if (jumpSoundSource != null)
+                if (hasJumped && playerInput.JumpP2() && hasDoubleJumped == false)
                 {
-                    PlayJumpSound();
+                    hasDoubleJumped = true;
+                    ApplyJumpVelocity();
+
+                    // Play jump sound
+                    if (jumpSoundSource != null)
+                    {
+                        PlayJumpSound();
+                    }
+                }
+                if (playerInput.JumpP2() && isGrounded)
+                {
+                    isGrounded = false;
+                    hasJumped = true;
+                    ApplyJumpVelocity();
+
+                    // Play jump sound
+                    if (jumpSoundSource != null)
+                    {
+                        PlayJumpSound();
+                    }
                 }
             }
         }
@@ -259,13 +316,13 @@ namespace SupanthaPaul
         private void OnTriggerEnter2D(Collider2D collision)
         {
             powerUpTimer = powerUpTime;
-            switch (collision.name) 
+            switch (collision.name)
             {
                 case "PowerUp1(Clone)":
                     {
                         whichPowerUp = 1;
                         speed = fixedSpeed + speedPowerUp;
-                            Debug.Log("PowerUp 1 picked up" + this.gameObject.name);
+                        Debug.Log("PowerUp 1 picked up" + this.gameObject.name);
                         knockbackForce = BaseKnockbackForce;
                         upwardKnockbackForce = baseUpwardKnockbackForce;
                         otherPlayerController.knockbackDuration = BaseKnockbackDuration;
