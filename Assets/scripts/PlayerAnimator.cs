@@ -27,7 +27,7 @@ namespace SupanthaPaul
             // Jump animation (if not grounded)
             m_anim.SetBool(_isJumping, !m_controller.isGrounded);
 
-            m_anim.SetBool(_melee, m_controller.isPunching);
+            m_anim.SetBool(_melee, m_controller.punchAnimation);
 
         }
     }
