@@ -40,7 +40,7 @@ public class RisingWater : MonoBehaviour
     {
         if (isGamePaused)
         {
-            if (Input.GetKeyDown(KeyCode.Space) || (Gamepad.all.Count > 0 && Gamepad.all[0].buttonWest.wasPressedThisFrame))
+            if (Input.GetKeyDown(KeyCode.Space) || (Gamepad.all.Count > 0 && Input.GetKeyDown(KeyCode.JoystickButton1)))
             {
                 ResumeGame();
             }
