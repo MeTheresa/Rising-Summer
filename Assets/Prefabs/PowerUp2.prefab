@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5007044845476305542}
   - component: {fileID: 6729865611307502385}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PowerUp2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6605910262414837365}
   - component: {fileID: 3565461826168657263}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

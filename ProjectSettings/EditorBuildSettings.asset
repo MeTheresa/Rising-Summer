@@ -14,9 +14,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SceneBlockStackLevel.unity
     guid: 70e9fc8680a59694b94b2c3c847ecf98
-  - enabled: 1
-    path: Assets/Scenes/SceneGameOver.unity
-    guid: a5aff7d35ee4073429c2dd8ee3ebf6d3
   - enabled: 0
     path: Assets/Scenes/SceneTesting.unity
     guid: 8d466b868cc3dcb4f89edcd74a7b05cd

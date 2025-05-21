@@ -108,7 +108,7 @@ namespace SupanthaPaul
             {
                 hasJumped = false;
             }
-            isGrounded = Physics2D.Linecast(new Vector3(groundCheck.position.x - _sprite.size.x/4, groundCheck.position.y, 0), new Vector3(groundCheck.position.x + _sprite.size.x/4, groundCheck.position.y), whatIsGround);
+            isGrounded = Physics2D.Linecast(new Vector3(groundCheck.position.x - _sprite.size.x / 4, groundCheck.position.y, 0), new Vector3(groundCheck.position.x + _sprite.size.x / 4, groundCheck.position.y), whatIsGround);
 
             if (this.gameObject.name == "Player1")
             {
@@ -146,7 +146,7 @@ namespace SupanthaPaul
                 }
             }
             if (punchTimer > 0) punchTimer -= Time.deltaTime;
-            if (punchTimer <= 0) isPunching = false; 
+            if (punchTimer <= 0) isPunching = false;
             if (punchAnimationTimer > 0) punchAnimationTimer -= Time.deltaTime;
             if (punchAnimationTimer <= 0) punchAnimation = false;
         }
@@ -310,42 +310,45 @@ namespace SupanthaPaul
             Gizmos.color = Color.red;
             if (groundCheck != null)
                 // Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
-                Gizmos.DrawLine(new Vector3(groundCheck.position.x - _sprite.size.x/4, groundCheck.position.y, 0), new Vector3(groundCheck.position.x + _sprite.size.x/4, groundCheck.position.y));
+                Gizmos.DrawLine(new Vector3(groundCheck.position.x - _sprite.size.x / 4, groundCheck.position.y, 0), new Vector3(groundCheck.position.x + _sprite.size.x / 4, groundCheck.position.y));
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            powerUpTimer = powerUpTime;
-            switch (collision.name)
+            if (collision.gameObject.layer == LayerMask.NameToLayer("PowerUp"))
             {
-                case "PowerUp1(Clone)": //speed
-                    {
-                        whichPowerUp = 1;
-                        speed = fixedSpeed + speedPowerUpExtraSpeed;
-                        Debug.Log("PowerUp 1 picked up" + this.gameObject.name);
-                        knockbackForce = BaseKnockbackForce;
-                        upwardKnockbackForce = baseUpwardKnockbackForce;
-                        otherPlayerController.knockbackDuration = BaseKnockbackDuration;
-                        _sprite.color = _powerupSpeedColor;
-                        break;
-                    }
-                case "PowerUp2(Clone)": //punch
-                    {
-                        whichPowerUp = 2;
-                        knockbackForce = BaseKnockbackForce + powerUpKnockbackForce;
-                        upwardKnockbackForce = baseUpwardKnockbackForce + powerUpUpwardKnockbackForce;
-                        otherPlayerController.knockbackDuration = BaseKnockbackDuration + powerUpKnockbackDuration;
-                        Debug.Log("PowerUp 2 picked up" + this.gameObject.name);
-                        speed = fixedSpeed;
-                        _sprite.color = _powerUpPunchColor;
-                        break;
-                    }
-                case "PowerUp3(Clone)":
-                    {
-                        whichPowerUp = 3;
-                        break;
-                    }
+                powerUpTimer = powerUpTime;
+                switch (collision.name)
+                {
+                    case "PowerUp1(Clone)": //speed
+                        {
+                            whichPowerUp = 1;
+                            speed = fixedSpeed + speedPowerUpExtraSpeed;
+                            Debug.Log("PowerUp 1 picked up" + this.gameObject.name);
+                            knockbackForce = BaseKnockbackForce;
+                            upwardKnockbackForce = baseUpwardKnockbackForce;
+                            otherPlayerController.knockbackDuration = BaseKnockbackDuration;
+                            _sprite.color = _powerupSpeedColor;
+                            break;
+                        }
+                    case "PowerUp2(Clone)": //punch
+                        {
+                            whichPowerUp = 2;
+                            knockbackForce = BaseKnockbackForce + powerUpKnockbackForce;
+                            upwardKnockbackForce = baseUpwardKnockbackForce + powerUpUpwardKnockbackForce;
+                            otherPlayerController.knockbackDuration = BaseKnockbackDuration + powerUpKnockbackDuration;
+                            Debug.Log("PowerUp 2 picked up" + this.gameObject.name);
+                            speed = fixedSpeed;
+                            _sprite.color = _powerUpPunchColor;
+                            break;
+                        }
+                    case "PowerUp3(Clone)":
+                        {
+                            whichPowerUp = 3;
+                            break;
+                        }
+                }
+                Destroy(collision.gameObject);
             }
-            Destroy(collision.gameObject);
         }
     }
 }
