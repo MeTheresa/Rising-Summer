@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 31357f9b87709ff41bec62702bd95d7e
+guid: 68ce6ba9d42dddb45ba7d50534b89b2c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4385933783085951190
-    second: Final_Character_Jump 1_0
+      213: -7503444032154155112
+    second: ButtonControllerSouth_0
   - first:
-      213: -8870526564888131019
-    second: Final_Character_Jump 1_1
+      213: -3340229559329754550
+    second: ButtonControllerSouth_1
   - first:
-      213: -8210970846271047837
-    second: Final_Character_Jump 1_2
+      213: -5491952900980453895
+    second: ButtonControllerSouth_2
   - first:
-      213: -8768208284622795825
-    second: Final_Character_Jump 1_3
+      213: 6898674736046341945
+    second: ButtonControllerSouth_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -55,7 +55,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -122,13 +122,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Final_Character_Jump 1_0
+      name: ButtonControllerSouth_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 18
-        height: 29
+        y: 31
+        width: 35
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +137,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a27d6c246780223c0800000000000000
-      internalID: -4385933783085951190
+      spriteID: 8974d6f58696ed790800000000000000
+      internalID: -7503444032154155112
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Final_Character_Jump 1_1
+      name: ButtonControllerSouth_1
       rect:
         serializedVersion: 2
-        x: 33
-        y: 0
-        width: 19
-        height: 29
+        x: 31
+        y: 63
+        width: 36
+        height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,20 +159,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 53a4d29561f85e480800000000000000
-      internalID: -8870526564888131019
+      spriteID: a42f3efb9ee15a1d0800000000000000
+      internalID: -3340229559329754550
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Final_Character_Jump 1_2
+      name: ButtonControllerSouth_2
       rect:
         serializedVersion: 2
-        x: 67
-        y: 0
-        width: 19
-        height: 28
+        x: 63
+        y: 31
+        width: 35
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,20 +181,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 367fce6d485cc0e80800000000000000
-      internalID: -8210970846271047837
+      spriteID: 9fd42e52fe9a8c3b0800000000000000
+      internalID: -5491952900980453895
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Final_Character_Jump 1_3
+      name: ButtonControllerSouth_3
       rect:
         serializedVersion: 2
-        x: 101
+        x: 31
         y: 0
-        width: 18
-        height: 28
+        width: 36
+        height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,8 +203,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fcbcb666501115680800000000000000
-      internalID: -8768208284622795825
+      spriteID: 93ff0072f140dbf50800000000000000
+      internalID: 6898674736046341945
       vertices: []
       indices: 
       edges: []
@@ -213,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -223,10 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Final_Character_Jump 1_0: -4385933783085951190
-      Final_Character_Jump 1_1: -8870526564888131019
-      Final_Character_Jump 1_2: -8210970846271047837
-      Final_Character_Jump 1_3: -8768208284622795825
+      ButtonControllerSouth_0: -7503444032154155112
+      ButtonControllerSouth_1: -3340229559329754550
+      ButtonControllerSouth_2: -5491952900980453895
+      ButtonControllerSouth_3: 6898674736046341945
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

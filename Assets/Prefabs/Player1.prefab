@@ -5250,7 +5250,7 @@ MonoBehaviour:
   baseUpwardKnockbackForce: 7
   upwardKnockbackForce: 0
   punchRange: 1
-  punchCooldown: 1.75
+  punchCooldown: 1.25
   punchAnimationCooldown: 0.25
   punchAnimationTimer: 0
   punchTimer: 0
@@ -5267,7 +5267,13 @@ MonoBehaviour:
   powerUpKnockbackForce: 4
   powerUpUpwardKnockbackForce: 2
   powerUpKnockbackDuration: 0.15
-  _sprite: {fileID: 882897981925238585}
+  _spriteColor: {r: 1, g: 1, b: 1, a: 1}
+  _powerupSpeedColor: {r: 0, g: 0, b: 1, a: 1}
+  _powerUpPunchColor: {r: 1, g: 0, b: 0, a: 1}
+  _canvas: {fileID: 0}
+  _punchCooldownSlider: {fileID: 0}
+  startBlinking: 0
+  _spriteRenderer: {fileID: 882897981925238585}
 --- !u!114 &2163860066098274880
 MonoBehaviour:
   m_ObjectHideFlags: 0
