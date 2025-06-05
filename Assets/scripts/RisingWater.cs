@@ -20,10 +20,10 @@ public class RisingWater : MonoBehaviour
     private GameObject PlayerWhoDied;
     private float timer = 0f;
     private bool startMoving = false;
-    private bool isGamePaused = false;
+    [SerializeField] private bool isGamePaused = false;
 
     private Collider2D waterCollider;
-
+    [SerializeField] private TMP_Text _timerText;
     void Start()
     {
         waterCollider = GetComponent<Collider2D>();
@@ -44,15 +44,23 @@ public class RisingWater : MonoBehaviour
             {
                 ResumeGame();
             }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Time.timeScale = 1f;
+                isGamePaused = false;
+                SceneManager.LoadScene(0);
+            }
         }
         if (!startMoving)
         {
             timer += Time.deltaTime;
+            _timerText.text = $"Time before water rises!\n{Mathf.FloorToInt(5-timer)}";
             if (timer >= delayBeforeStart)
                 startMoving = true;
         }
         else
         {
+            _timerText.gameObject.SetActive(false);
             transform.position += Vector3.up * scrollSpeed * Time.deltaTime;
         }
     }
@@ -89,5 +97,6 @@ public class RisingWater : MonoBehaviour
         Time.timeScale = 1f;
         isGamePaused = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        _timerText.gameObject.SetActive(true);
     }
 }

@@ -14,7 +14,7 @@ namespace SupanthaPaul
         public bool isGrounded;
         private bool facingRight = true;
         private float moveInput;
-        [SerializeField] private float fixedSpeed = 5f;
+        public float fixedSpeed = 5f;
         [SerializeField] private float speed = 0f;
 
         [SerializeField] private float jumpForce = 16f;
@@ -25,20 +25,20 @@ namespace SupanthaPaul
         [SerializeField] private LayerMask whatIsGround;
 
         [Header("Punch Settings")]
-        public bool isPunching;
-        public bool punchAnimation;
-        [SerializeField] private float BaseKnockbackForce = 8f;
+        public bool IsPunching;
+        public bool PunchAnimation;
+        public float BaseKnockbackForce = 8f;
         [SerializeField] private float knockbackForce = 0f;
-        [SerializeField] private float baseUpwardKnockbackForce = 7f;
+        public float BaseUpwardKnockbackForce = 7f;
         [SerializeField] private float upwardKnockbackForce = 0f;
-        [SerializeField] private float punchRange = 1f;
+        public float PunchRange = 1f;
         [SerializeField] private float punchCooldown = 1.25f;
         [SerializeField] private float punchAnimationCooldown = 0.25f;
         [SerializeField] private float punchAnimationTimer = 0f;
         [SerializeField] private float punchTimer = 0f;
 
         [Header("Knockback Settings")]
-        [SerializeField] private float BaseKnockbackDuration = 0.35f;
+        public float BaseKnockbackDuration = 0.35f;
         [SerializeField] private float knockbackDuration = 0f;
         private float knockbackTimer = 0f;
 
@@ -49,37 +49,36 @@ namespace SupanthaPaul
         [SerializeField] private AudioSource jumpSoundSource; // New jump sound source
 
         [Header("Power Ups")]
-        public int whichPowerUp = 0;
-        public float powerUpTime = 5f;
-        public float powerUpTimer = 0f;
+        public int WhichPowerUp = 0;
+        public float PowerUpTime = 5f;
+        public float PowerUpTimer = 0f;
         [SerializeField] private float speedPowerUpExtraSpeed = 5f;
         [SerializeField] private float powerUpKnockbackForce = 4f;
         [SerializeField] private float powerUpUpwardKnockbackForce = 2f;
         [SerializeField] private float powerUpKnockbackDuration = 0.15f;
 
-        private Rigidbody2D rb;
+        public Rigidbody2D RBPlayer;
 
         [Header("Other")]
-        public Color _spriteColor = Color.white;
-        public Color _powerupSpeedColor = Color.blue;
-        public Color _powerUpPunchColor = Color.red;
+        public Color SpriteColor = Color.white;
+        public Color PowerupSpeedColor = Color.blue;
+        public Color PowerUpPunchColor = Color.red;
         [SerializeField] private Canvas _canvas;
         [SerializeField] private Slider _punchCooldownSlider; 
         private float spriteBlinkingTimer = 0.0f;
         private float spriteBlinkingMiniDuration = 0.1f;
         private float spriteBlinkingTotalTimer = 0.0f;
         private float spriteBlinkingTotalDuration = 0.5f;
-        public bool startBlinking = false;
-        public SpriteRenderer _spriteRenderer;
-        void Start()
+        public bool StartBlinking = false;
+        public SpriteRenderer PlayerSpriteRenderer;
+        public void Start()
         {
             speed = fixedSpeed;
             knockbackForce = BaseKnockbackForce;
-            upwardKnockbackForce = baseUpwardKnockbackForce;
+            upwardKnockbackForce = BaseUpwardKnockbackForce;
             knockbackDuration = BaseKnockbackDuration;
-            rb = GetComponent<Rigidbody2D>();
 
-            _spriteRenderer.color = _spriteColor;
+            PlayerSpriteRenderer.color = SpriteColor;
             _punchCooldownSlider.gameObject.SetActive(false);
         }
         void Update()
@@ -89,14 +88,14 @@ namespace SupanthaPaul
             PowerUps();
             JumpingPhysics();
             HandleRunningSound();
-            if (startBlinking) SpriteBlinkingEffect();
+            if (StartBlinking) SpriteBlinkingEffect();
             _canvas.transform.position = this.transform.position;
         }
         void FixedUpdate()
         {
             if (knockbackTimer <= 0f)
             {
-                rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
+                RBPlayer.linearVelocity = new Vector2(moveInput * speed, RBPlayer.linearVelocity.y);
             }
             else
             {
@@ -114,7 +113,7 @@ namespace SupanthaPaul
             {
                 hasJumped = false;
             }
-            isGrounded = Physics2D.Linecast(new Vector3(groundCheck.position.x - _spriteRenderer.size.x / 4, groundCheck.position.y, 0), new Vector3(groundCheck.position.x + _spriteRenderer.size.x / 4, groundCheck.position.y), whatIsGround);
+            isGrounded = Physics2D.Linecast(new Vector3(groundCheck.position.x - PlayerSpriteRenderer.size.x / 4, groundCheck.position.y, 0), new Vector3(groundCheck.position.x + PlayerSpriteRenderer.size.x / 4, groundCheck.position.y), whatIsGround);
 
             if (this.gameObject.name == "Player1")
             {
@@ -159,11 +158,11 @@ namespace SupanthaPaul
             }
             if (punchTimer <= 0)
             {
-                isPunching = false;
+                IsPunching = false;
                 _punchCooldownSlider.gameObject.SetActive(false);
             }
             if (punchAnimationTimer > 0) punchAnimationTimer -= Time.deltaTime;
-            if (punchAnimationTimer <= 0) punchAnimation = false;
+            if (punchAnimationTimer <= 0) PunchAnimation = false;
         }
         private void JumpingPhysics()
         {
@@ -201,37 +200,37 @@ namespace SupanthaPaul
         }
         private void PowerUps()
         {
-            if (powerUpTimer > 0)
+            if (PowerUpTimer > 0)
             {
-                powerUpTimer -= Time.deltaTime;
+                PowerUpTimer -= Time.deltaTime;
             }
             else
             {
-                powerUpTimer = 0;
-                switch (whichPowerUp)
+                PowerUpTimer = 0;
+                switch (WhichPowerUp)
                 {
                     case 1:
                         {
-                            _spriteRenderer.color = _spriteColor;
+                            PlayerSpriteRenderer.color = SpriteColor;
                             speed = fixedSpeed;
-                            whichPowerUp = 0;
+                            WhichPowerUp = 0;
                             Debug.Log("PowerUp 1 down" + this.gameObject.name);
                             break;
                         }
                     case 2:
                         {
-                            _spriteRenderer.color = _spriteColor;
+                            PlayerSpriteRenderer.color = SpriteColor;
                             knockbackForce = BaseKnockbackForce;
-                            upwardKnockbackForce = baseUpwardKnockbackForce;
+                            upwardKnockbackForce = BaseUpwardKnockbackForce;
                             otherPlayerController.knockbackDuration = BaseKnockbackDuration;
-                            whichPowerUp = 0;
+                            WhichPowerUp = 0;
                             Debug.Log("PowerUp 2 down" + this.gameObject.name);
                             break;
                         }
                     case 3:
                         {
-                            _spriteRenderer.color = _spriteColor;
-                            whichPowerUp = 0;
+                            PlayerSpriteRenderer.color = SpriteColor;
+                            WhichPowerUp = 0;
                             Debug.Log("PowerUp 3 down" + this.gameObject.name);
                             break;
                         }
@@ -240,7 +239,7 @@ namespace SupanthaPaul
         }
         private void ApplyJumpVelocity()
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            RBPlayer.linearVelocity = new Vector2(RBPlayer.linearVelocity.x, jumpForce);
         }
         private void PlayJumpSound()
         {
@@ -248,13 +247,13 @@ namespace SupanthaPaul
         }
         void Punch()
         {
-            if (!isPunching)
+            if (!IsPunching)
             {
-                isPunching = true;
-                punchAnimation = true;
+                IsPunching = true;
+                PunchAnimation = true;
                 punchTimer = punchCooldown;
                 punchAnimationTimer = punchAnimationCooldown;
-                Vector2 punchPosition = (facingRight ? Vector2.right : Vector2.left) * punchRange + (Vector2)transform.position;
+                Vector2 punchPosition = (facingRight ? Vector2.right : Vector2.left) * PunchRange + (Vector2)transform.position;
                 Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(punchPosition, 0.5f, LayerMask.GetMask("Player"));
 
                 bool hitEnemy = false;
@@ -265,7 +264,7 @@ namespace SupanthaPaul
                     {
                         hitEnemy = true;
                         Rigidbody2D otherRb = hit.GetComponent<Rigidbody2D>();
-                        hit.GetComponent<PlayerController>().startBlinking = true;
+                        hit.GetComponent<PlayerController>().StartBlinking = true;
                         if (otherRb)
                         {
                             otherRb.linearVelocity = Vector2.zero;
@@ -326,9 +325,9 @@ namespace SupanthaPaul
             spriteBlinkingTotalTimer += Time.deltaTime;
             if (spriteBlinkingTotalTimer >= spriteBlinkingTotalDuration)
             {
-                startBlinking = false;
+                StartBlinking = false;
                 spriteBlinkingTotalTimer = 0.0f;
-               _spriteRenderer.enabled = true;
+               PlayerSpriteRenderer.enabled = true;
                 return;
             }
 
@@ -336,13 +335,13 @@ namespace SupanthaPaul
             if (spriteBlinkingTimer >= spriteBlinkingMiniDuration)
             {
                 spriteBlinkingTimer = 0.0f;
-                if (_spriteRenderer.enabled == true)
+                if (PlayerSpriteRenderer.enabled == true)
                 {
-                    _spriteRenderer.enabled = false;  //make changes
+                    PlayerSpriteRenderer.enabled = false;  //make changes
                 }
                 else
                 {
-                    _spriteRenderer.enabled = true;   //make changes
+                    PlayerSpriteRenderer.enabled = true;   //make changes
                 }
             }
         }
@@ -351,40 +350,40 @@ namespace SupanthaPaul
             Gizmos.color = Color.red;
             if (groundCheck != null)
                 // Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
-                Gizmos.DrawLine(new Vector3(groundCheck.position.x - _spriteRenderer.size.x / 4, groundCheck.position.y, 0), new Vector3(groundCheck.position.x + _spriteRenderer.size.x / 4, groundCheck.position.y));
+                Gizmos.DrawLine(new Vector3(groundCheck.position.x - PlayerSpriteRenderer.size.x / 4, groundCheck.position.y, 0), new Vector3(groundCheck.position.x + PlayerSpriteRenderer.size.x / 4, groundCheck.position.y));
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.layer == LayerMask.NameToLayer("PowerUp"))
             {
-                powerUpTimer = powerUpTime;
+                PowerUpTimer = PowerUpTime;
                 switch (collision.name)
                 {
                     case "PowerUp1(Clone)": //speed
                         {
-                            whichPowerUp = 1;
+                            WhichPowerUp = 1;
                             speed = fixedSpeed + speedPowerUpExtraSpeed;
                             Debug.Log("PowerUp 1 picked up" + this.gameObject.name);
                             knockbackForce = BaseKnockbackForce;
-                            upwardKnockbackForce = baseUpwardKnockbackForce;
+                            upwardKnockbackForce = BaseUpwardKnockbackForce;
                             otherPlayerController.knockbackDuration = BaseKnockbackDuration;
-                            _spriteRenderer.color = _powerupSpeedColor;
+                            PlayerSpriteRenderer.color = PowerupSpeedColor;
                             break;
                         }
                     case "PowerUp2(Clone)": //punch
                         {
-                            whichPowerUp = 2;
+                            WhichPowerUp = 2;
                             knockbackForce = BaseKnockbackForce + powerUpKnockbackForce;
-                            upwardKnockbackForce = baseUpwardKnockbackForce + powerUpUpwardKnockbackForce;
+                            upwardKnockbackForce = BaseUpwardKnockbackForce + powerUpUpwardKnockbackForce;
                             otherPlayerController.knockbackDuration = BaseKnockbackDuration + powerUpKnockbackDuration;
                             Debug.Log("PowerUp 2 picked up" + this.gameObject.name);
                             speed = fixedSpeed;
-                            _spriteRenderer.color = _powerUpPunchColor;
+                            PlayerSpriteRenderer.color = PowerUpPunchColor;
                             break;
                         }
                     case "PowerUp3(Clone)":
                         {
-                            whichPowerUp = 3;
+                            WhichPowerUp = 3;
                             break;
                         }
                 }

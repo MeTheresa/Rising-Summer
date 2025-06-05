@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2873615183130707458}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.064, z: 0}
+  m_LocalPosition: {x: 0, y: -1.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -159,7 +159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4af389105722f64d8db36af0a4eb949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherPlayerController: {fileID: 0}
+  otherPlayerController: {fileID: 6602150895569296859, guid: 83fe678e65df551418b4f054707bb9d0,
+    type: 3}
   isGrounded: 0
   fixedSpeed: 5
   speed: 5
@@ -169,13 +170,13 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
-  isPunching: 0
-  punchAnimation: 0
+  IsPunching: 0
+  PunchAnimation: 0
   BaseKnockbackForce: 8
   knockbackForce: 0
-  baseUpwardKnockbackForce: 7
+  BaseUpwardKnockbackForce: 7
   upwardKnockbackForce: 0
-  punchRange: 1
+  PunchRange: 1
   punchCooldown: 1.25
   punchAnimationCooldown: 0.25
   punchAnimationTimer: 0
@@ -186,20 +187,21 @@ MonoBehaviour:
   hitSoundSource: {fileID: 502445461700462890}
   runningSoundSource: {fileID: 7973387738124565848}
   jumpSoundSource: {fileID: 7292156435836933297}
-  whichPowerUp: 0
-  powerUpTime: 5
-  powerUpTimer: 0
+  WhichPowerUp: 0
+  PowerUpTime: 5
+  PowerUpTimer: 0
   speedPowerUpExtraSpeed: 5
   powerUpKnockbackForce: 4
   powerUpUpwardKnockbackForce: 2
   powerUpKnockbackDuration: 0.15
-  _spriteColor: {r: 1, g: 1, b: 1, a: 1}
-  _powerupSpeedColor: {r: 0, g: 0, b: 1, a: 1}
-  _powerUpPunchColor: {r: 1, g: 0, b: 0, a: 1}
+  RBPlayer: {fileID: 4802596260202521343}
+  SpriteColor: {r: 1, g: 1, b: 1, a: 1}
+  PowerupSpeedColor: {r: 0, g: 0, b: 1, a: 1}
+  PowerUpPunchColor: {r: 1, g: 0, b: 0, a: 1}
   _canvas: {fileID: 0}
   _punchCooldownSlider: {fileID: 0}
-  startBlinking: 0
-  _spriteRenderer: {fileID: 5149670215736213819}
+  StartBlinking: 0
+  PlayerSpriteRenderer: {fileID: 5149670215736213819}
 --- !u!114 &3012642888106425122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -658,8 +660,8 @@ Transform:
   m_GameObject: {fileID: 4871909443773054597}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.063, y: -0.1873, z: 0}
+  m_LocalScale: {x: 6.1845126, y: 6.238336, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6892782724252646315}
@@ -709,7 +711,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 51
-  m_Sprite: {fileID: 21300000, guid: 29697c9d7181152499925f774a855363, type: 3}
+  m_Sprite: {fileID: 7806233625032805030, guid: efb14236d19ef2a4ebd5d1dc50f8370a,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -730,7 +733,7 @@ Animator:
   m_GameObject: {fileID: 4871909443773054597}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4526272885f784a4eb011a6c1eddf921, type: 2}
+  m_Controller: {fileID: 9100000, guid: 91de12b8c22ebdf46aee5ce06de7e158, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

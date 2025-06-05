@@ -5099,7 +5099,7 @@ Transform:
   m_GameObject: {fileID: 2754398883253165511}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.064, z: 0}
+  m_LocalPosition: {x: 0, y: -1.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5233,7 +5233,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4af389105722f64d8db36af0a4eb949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherPlayerController: {fileID: 0}
+  otherPlayerController: {fileID: 1117868091890774743, guid: 17546ea2fd6e9504ca47f69cd6105a9a,
+    type: 3}
   isGrounded: 0
   fixedSpeed: 5
   speed: 5
@@ -5243,13 +5244,13 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
-  isPunching: 0
-  punchAnimation: 0
+  IsPunching: 0
+  PunchAnimation: 0
   BaseKnockbackForce: 8
   knockbackForce: 0
-  baseUpwardKnockbackForce: 7
+  BaseUpwardKnockbackForce: 7
   upwardKnockbackForce: 0
-  punchRange: 1
+  PunchRange: 1
   punchCooldown: 1.25
   punchAnimationCooldown: 0.25
   punchAnimationTimer: 0
@@ -5260,20 +5261,21 @@ MonoBehaviour:
   hitSoundSource: {fileID: 821090926787528726}
   runningSoundSource: {fileID: 4589882796369007626}
   jumpSoundSource: {fileID: 7298152203967544644}
-  whichPowerUp: 0
-  powerUpTime: 5
-  powerUpTimer: 0
+  WhichPowerUp: 0
+  PowerUpTime: 5
+  PowerUpTimer: 0
   speedPowerUpExtraSpeed: 5
   powerUpKnockbackForce: 4
   powerUpUpwardKnockbackForce: 2
   powerUpKnockbackDuration: 0.15
-  _spriteColor: {r: 1, g: 1, b: 1, a: 1}
-  _powerupSpeedColor: {r: 0, g: 0, b: 1, a: 1}
-  _powerUpPunchColor: {r: 1, g: 0, b: 0, a: 1}
+  RBPlayer: {fileID: 5128293544053408959}
+  SpriteColor: {r: 1, g: 1, b: 1, a: 1}
+  PowerupSpeedColor: {r: 0, g: 0, b: 1, a: 1}
+  PowerUpPunchColor: {r: 1, g: 0, b: 0, a: 1}
   _canvas: {fileID: 0}
   _punchCooldownSlider: {fileID: 0}
-  startBlinking: 0
-  _spriteRenderer: {fileID: 882897981925238585}
+  StartBlinking: 0
+  PlayerSpriteRenderer: {fileID: 882897981925238585}
 --- !u!114 &2163860066098274880
 MonoBehaviour:
   m_ObjectHideFlags: 0
